@@ -1,0 +1,11 @@
+@mixin etraining-shortcuts-theme($theme) {
+
+    $background: map-get($theme, background);
+
+    #etraining-shortcuts {
+
+        &.show-mobile-panel {
+            background-color: map-get($background, background);
+        }
+    }
+}

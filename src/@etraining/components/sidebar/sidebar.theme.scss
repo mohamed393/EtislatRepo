@@ -1,0 +1,16 @@
+@mixin etraining-sidebar-theme($theme) {
+
+    $background: map-get($theme, background);
+
+    etraining-sidebar {
+        background: map-get($background, background);
+    }
+
+    .etraining-sidebar-overlay {
+        background-color: rgba(0, 0, 0, 0.6);
+
+        &.etraining-sidebar-overlay-invisible {
+            background-color: transparent;
+        }
+    }
+}
