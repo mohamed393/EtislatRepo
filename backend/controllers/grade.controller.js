@@ -52,6 +52,7 @@ module.exports = {
     async findById(req,res,next){
         try {
             let {id} = req.params ;
+            console.log('mmmmmmmmmmmmmmmmmmmmmmmmm')
             let grade = await checkMethods.checkExistThenGet(id,Grade , {deleted:false});
             res.status(200).send({grade:grade});
         } catch (error) {
@@ -69,7 +70,7 @@ module.exports = {
 
     async update(req,res,next){
         try {
-            res.status(200).send('Done')
+            res.status(200).send('Done');
         } catch (error) {
             next(error);
         }

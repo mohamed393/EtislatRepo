@@ -10,7 +10,7 @@ var bodyparser = require('body-parser')
 
 var indexRouter = require('./routes');
 var config = require('./config');
-
+var ApiError = require('./helpers/ApiError')
 var app = express();
 
 
@@ -56,9 +56,14 @@ app.use(function(req, res, next) {
 //ERROR Handler
 app.use((err, req, res, next) => {
 
+  if (err instanceof mongoose.CastError)
+      err = new ApiError.NotFound(err) ||  new ApiError.NotFound(err.model.modelName)  ;
+
   res.status(err.status || 500).json({
-      error: err.message
+      errors: err.message
   });
   
 });
+
+
 module.exports = app;

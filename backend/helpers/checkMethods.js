@@ -1,5 +1,8 @@
-const validId = id => isNumeric(id);
+var ApiError = require('./ApiError')
 
+
+const isNumeric = value => Number.isInteger(parseInt(value));
+const validId = id => isNumeric(id);
 
 module.exports = {
     async checkExistThenGet  (id, Model, findQuery = { populate: '', select: '' }, errorMessage = '')  {

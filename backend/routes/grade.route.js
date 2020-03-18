@@ -4,14 +4,14 @@ var gradeController = require('../controllers/grade.controller')
 
 router.route('/')
     .get(gradeController.findAll)
-    .post()
+    .post(gradeController.create)
 
 
 
 router.route('/:id')
-    .put()
-    .delete()
-    .get()
+    .put(gradeController.update)
+    .delete(gradeController.delete)
+    .get(gradeController.findById)
 
 
 module.exports = router;
