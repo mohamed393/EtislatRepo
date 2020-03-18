@@ -60,7 +60,7 @@ app.use((err, req, res, next) => {
       err = new ApiError.NotFound(err) ||  new ApiError.NotFound(err.model.modelName)  ;
 
   res.status(err.status || 500).json({
-      errors: err.message
+      errors: err.message 
   });
   
 });
