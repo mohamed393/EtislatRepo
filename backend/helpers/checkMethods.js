@@ -13,7 +13,7 @@ module.exports = {
             delete findQuery.select;
         }
         if (validId(id)) {
-            let model = await Model.findOne({ _id: id, ...findQuery })
+            let model = await Model.findOne({ _id: id, ...findQuery }) 
                 .populate(populateQuery).select(selectQuery);
             if (model)
                 return model;
