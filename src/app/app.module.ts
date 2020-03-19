@@ -1,30 +1,32 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { TranslateModule } from '@ngx-translate/core';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RouterModule, Routes} from '@angular/router';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {TranslateModule} from '@ngx-translate/core';
 import 'hammerjs';
 
-import { EtrainingModule } from '@etraining/etraining.module';
-import { EtrainingSharedModule } from '@etraining/shared.module';
-import { EtrainingProgressBarModule, EtrainingSidebarModule, EtrainingThemeOptionsModule } from '@etraining/components';
+import {EtrainingModule} from '@etraining/etraining.module';
+import {EtrainingSharedModule} from '@etraining/shared.module';
+import {EtrainingProgressBarModule, EtrainingSidebarModule, EtrainingThemeOptionsModule} from '@etraining/components';
 
-import { etrainingConfig } from 'app/etraining-config';
+import {etrainingConfig} from 'app/etraining-config';
 
-import { AppComponent } from 'app/app.component';
-import { LayoutModule } from 'app/layout/layout.module';
-import { SampleModule } from 'app/main/sample/sample.module';
+import {AppComponent} from 'app/app.component';
+import {LayoutModule} from 'app/layout/layout.module';
 
 const appRoutes: Routes = [
     {
-        path: '',
-        loadChildren: './main/pages/pages.module#PagesModule'
+        path: 'auth',
+        loadChildren: () => import('./pages/authentication/authentication.module').then(m => m.AuthenticationModule)
     }, {
-        path      : '**',
+        path: '',
+        loadChildren: './pages/pages.module#PagesModule'
+    }, {
+        path: '**',
         redirectTo: 'sample'
     }
 ];
@@ -33,7 +35,8 @@ const appRoutes: Routes = [
     declarations: [
         AppComponent
     ],
-    imports     : [
+    imports: [
+
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
@@ -54,10 +57,9 @@ const appRoutes: Routes = [
         // App modules
         LayoutModule,
     ],
-    bootstrap   : [
+    bootstrap: [
         AppComponent
     ]
 })
-export class AppModule
-{
+export class AppModule {
 }
