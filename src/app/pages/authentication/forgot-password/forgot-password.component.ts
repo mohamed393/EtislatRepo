@@ -24,6 +24,7 @@ export class ForgotPasswordComponent implements OnInit {
         private _etrainingConfigService: EtrainingConfigService,
         private _formBuilder: FormBuilder
     ) {
+
         // Configure the layout
         this._etrainingConfigService.config = {
             layout: {
