@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------------------------------
-// @ Custom color maps for Etraining
+// @ Custom color maps for etraining
 // -----------------------------------------------------------------------------------------------------
 $etraining-white: (
     500: white,
@@ -48,7 +48,7 @@ $etraining-navy: (
     )
 );
 
-// Generate Etraining color classes for custom palettes
+// Generate etraining color classes for custom palettes
 $custom_palettes: (
     etraining-white: $etraining-white,
     etraining-black: $etraining-black,
@@ -81,12 +81,65 @@ $typography: mat-typography-config(
 @import "src/app/layout/components/chat-panel/chat-panel.theme";
 @import "src/app/layout/components/toolbar/toolbar.theme";
 
+
+@import "src/app/main/pages/authentication/login/login.theme";
+@import "src/app/main/pages/authentication/register/register.theme";
+@import "src/app/main/pages/authentication/reset-password/reset-password.theme";
+@import "src/app/main/pages/authentication/forgot-password/forgot-password.theme";
+@import "src/app/main/pages/authentication/lock/lock.theme";
+@import "src/app/main/pages/authentication/mail-confirm/mail-confirm.theme";
+@import "src/app/main/pages/coming-soon/coming-soon.theme";
+@import "src/app/main/pages/errors/404/error-404.theme";
+@import "src/app/main/pages/errors/500/error-500.theme";
+@import "src/app/main/pages/maintenance/maintenance.theme";
+@import "src/app/main/pages/pricing/style-1/style-1.theme";
+@import "src/app/main/pages/pricing/style-2/style-2.theme";
+@import "src/app/main/pages/pricing/style-3/style-3.theme";
+@import "src/app/main/pages/profile/tabs/about/about.theme";
+@import "src/app/main/pages/profile/tabs/photos-videos/photos-videos.theme";
+@import "src/app/main/pages/profile/tabs/timeline/timeline.theme";
+@import "src/app/main/pages/search/classic/search-classic.theme";
+@import "src/app/main/pages/search/modern/search-modern.theme";
+@import "src/app/main/pages/faq/faq.theme";
+@import "src/app/main/pages/knowledge-base/knowledge-base.theme";
+
+
+
 // Define a mixin for easier access
 @mixin components-theme($theme) {
 
     // Layout components
     @include chat-panel-theme($theme);
     @include toolbar-theme($theme);
+
+    // Apps
+
+
+    // Pages
+    @include login-theme($theme);
+    @include register-theme($theme);
+    @include reset-password-theme($theme);
+    @include forgot-password-theme($theme);
+    @include lock-theme($theme);
+    @include mail-confirm-theme($theme);
+    @include coming-soon-theme($theme);
+    @include error-404-theme($theme);
+    @include error-500-theme($theme);
+    @include maintenance-theme($theme);
+    @include pricing-style-1-theme($theme);
+    @include pricing-style-2-theme($theme);
+    @include pricing-style-3-theme($theme);
+    @include profile-about-theme($theme);
+    @include profile-photos-videos-theme($theme);
+    @include profile-timeline-theme($theme);
+    @include search-classic-theme($theme);
+    @include search-modern-theme($theme);
+    @include faq-theme($theme);
+    @include knowledge-base-theme($theme);
+
+    // UI
+
+    // Example Viewer
 }
 
 // -----------------------------------------------------------------------------------------------------
@@ -108,13 +161,13 @@ body.theme-default {
     // Create an Angular Material theme from the $theme map
     @include angular-material-theme($theme);
 
-    // Apply the theme to the Etraining Core
+    // Apply the theme to the etraining Core
     @include etraining-core-theme($theme);
 
     // Apply the theme to the user components
     @include components-theme($theme);
 
-    // Generate Etraining color classes for primary, accent and warn colors
+    // Generate etraining color classes for primary, accent and warn colors
     $palettes: (
         primary: $default-primary-palette,
         accent: $default-accent-palette,
@@ -143,13 +196,13 @@ body.theme-yellow-light {
     // Generate the Angular Material theme
     @include angular-material-theme($yellow-light-theme);
 
-    // Apply the theme to the Etraining Core
+    // Apply the theme to the etraining Core
     @include etraining-core-theme($yellow-light-theme);
 
     // Apply the theme to the user components
     @include components-theme($yellow-light-theme);
 
-    // Generate Etraining color classes for primary, accent and warn colors
+    // Generate etraining color classes for primary, accent and warn colors
     $palettes: (
         primary: $yellow-light-theme-primary-palette,
         accent: $yellow-light-theme-accent-palette,
@@ -178,13 +231,13 @@ body.theme-blue-gray-dark {
     // Generate the Angular Material theme
     @include angular-material-theme($blue-gray-dark-theme);
 
-    // Apply the theme to the Etraining Core
+    // Apply the theme to the etraining Core
     @include etraining-core-theme($blue-gray-dark-theme);
 
     // Apply the theme to the user components
     @include components-theme($blue-gray-dark-theme);
 
-    // Generate Etraining color classes for primary, accent and warn colors
+    // Generate etraining color classes for primary, accent and warn colors
     $palettes: (
         primary: $blue-gray-dark-theme-primary-palette,
         accent: $blue-gray-dark-theme-accent-palette,
@@ -213,13 +266,13 @@ body.theme-pink-dark {
     // Generate the Angular Material theme
     @include angular-material-theme($pink-dark-theme);
 
-    // Apply the theme to the Etraining Core
+    // Apply the theme to the etraining Core
     @include etraining-core-theme($pink-dark-theme);
 
     // Apply the theme to the user components
     @include components-theme($pink-dark-theme);
 
-    // Generate Etraining color classes for primary, accent and warn colors
+    // Generate etraining color classes for primary, accent and warn colors
     $palettes: (
         primary: $pink-dark-theme-primary-palette,
         accent: $pink-dark-theme-accent-palette,

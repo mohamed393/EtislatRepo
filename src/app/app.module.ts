@@ -21,6 +21,9 @@ import { SampleModule } from 'app/main/sample/sample.module';
 
 const appRoutes: Routes = [
     {
+        path: '',
+        loadChildren: './main/pages/pages.module#PagesModule'
+    }, {
         path      : '**',
         redirectTo: 'sample'
     }
@@ -35,16 +38,12 @@ const appRoutes: Routes = [
         BrowserAnimationsModule,
         HttpClientModule,
         RouterModule.forRoot(appRoutes),
-
         TranslateModule.forRoot(),
-
         // Material moment date module
         MatMomentDateModule,
-
         // Material
         MatButtonModule,
         MatIconModule,
-
         // Etraining modules
         EtrainingModule.forRoot(etrainingConfig),
         EtrainingProgressBarModule,
@@ -54,7 +53,6 @@ const appRoutes: Routes = [
 
         // App modules
         LayoutModule,
-        SampleModule
     ],
     bootstrap   : [
         AppComponent
