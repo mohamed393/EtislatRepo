@@ -1,12 +1,12 @@
-const User = require('../models/user.model')
-const config = require('../config')
+const User = require('../models/user.model');
+const config = require('../config');
 
-const {checkExistThenGet,checkValidations} = require('../helpers/checkMethods')
+const {checkExistThenGet, checkValidations} = require('../helpers/checkMethods');
 const {body} = require('express-validator');
 
-const utils  = require('../helpers/utils')
-const bcrypt = require('bcryptjs')
-const ApiError = require('../helpers/ApiError')
+const utils = require('../helpers/utils');
+const bcrypt = require('bcryptjs');
+const ApiError = require('../helpers/ApiError');
 
 
 let createPromise = (query)=>{
@@ -17,15 +17,15 @@ let createPromise = (query)=>{
         } catch (error) {
             reject(error);
         }
-    }) 
+    });
     return newPromise ;
-}
+};
 
 module.exports = {
 
     async findAll(req,res,next){
         try {
-            let limit = (+req.query.limit <=  config.limit)? +req.query.limit : config.limit 
+            let limit = (+req.query.limit <= config.limit) ? +req.query.limit : config.limit;
             let page = +req.query.page || config.page ;
             let skip = (page-1)*limit;
             let {name,email  , deleted , canDelete , active } = req.query ;
@@ -46,7 +46,7 @@ module.exports = {
             if (active) {
                 query.active = active ;
             }
-            let findQuery = createPromise(User.find(query).limit(limit).skip(skip).sort(sortQuery)) 
+            let findQuery = createPromise(User.find(query).limit(limit).skip(skip).sort(sortQuery));
             let countQuery = createPromise(User.count(query)) ;
             let result = await Promise.all([findQuery,countQuery]);
             res.status(200).send({users:result[0],count:result[1]})
@@ -105,4 +105,4 @@ module.exports = {
             next(error);
         }
     },
-}
+};

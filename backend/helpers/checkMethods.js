@@ -1,6 +1,4 @@
-
-
-var ApiError = require('./ApiError') ;
+const ApiError = require('./ApiError');
 const {validationResult } = require('express-validator');
 const {matchedData} = require('express-validator');
 
@@ -36,5 +34,5 @@ module.exports = {
         }
         return matchedData(req);
     }
-}
+};
 

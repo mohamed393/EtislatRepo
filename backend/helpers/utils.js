@@ -1,6 +1,6 @@
 const config = require('../config') ;
 
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 const { jwtSecret } = config;
 

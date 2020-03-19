@@ -5,4 +5,4 @@ const config = {
     "jwtSecret":"online_training"
 };
 
-module.exports = config
+module.exports = config;
