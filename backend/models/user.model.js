@@ -23,7 +23,7 @@ const userSchema = new Schema({
         default: false
     },
     canDelete: {
-        type: Boolean,
+        type: Boolean,   
         default: false
     },
     active: {
