@@ -1,9 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var gradeRoute = require('./grade.route')
+const gradeRoute = require('./grade.route');
+const userRoute = require('./user.route');
 
 
 router.use('/grade',gradeRoute);
+router.use('/user',userRoute);
 
 module.exports = router;
