@@ -1,13 +1,22 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema ;
 var autoIncrement = require('mongoose-auto-increment')
-const gradeSchema = new Schema({
+const userSchema = new Schema({
     _id: {
         type: Number,
         required: true
     },
     name:{
-        type:{en:{type:String , required:true},ar:{type:String , required:true}}
+        type:String ,
+        required:true
+    },
+    email:{
+        type:String ,
+        required:true
+    },
+    password:{
+        type:String ,
+        required:true
     },
     deleted: {
         type: Boolean,
@@ -20,10 +29,16 @@ const gradeSchema = new Schema({
     active: {
         type: Boolean,
         default: true
+    },
+    rest_token:{
+        type:String 
+    },
+    expire_at:{
+        type:Date
     }
 }, { timestamps: true });
 
 autoIncrement.initialize(mongoose.connection);
-gradeSchema.plugin(autoIncrement.plugin, { model: 'grade', startAt: 1 });
+userSchema.plugin(autoIncrement.plugin, { model: 'user', startAt: 1 });
 
-module.exports =  mongoose.model('grade', gradeSchema);
+module.exports =  mongoose.model('user', userSchema);

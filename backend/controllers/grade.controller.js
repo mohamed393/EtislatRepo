@@ -22,7 +22,7 @@ module.exports = {
     async findAll(req,res,next){
         try {
             let limit = (+req.query.limit <=  config.limit)? +req.query.limit : config.limit 
-            let page = +req.query.limit || config.page ;
+            let page = +req.query.page || config.page ;
             let skip = (page-1)*limit;
             let {name  , deleted , canDelete , active } = req.query ;
             let query = {deleted:false};
