@@ -1,0 +1,19 @@
+<div id="layout-wrapper">
+
+  <app-topbar (mobileMenuButtonClicked)="onToggleMobileMenu()" (settingsButtonClicked)="onSettingsButtonClicked()">
+  </app-topbar>
+
+  <app-sidebar *ngIf="viewSideBar" [isCondensed]="isCondensed"></app-sidebar>
+  <!--*ngIf="user.UserType.key != 'STUDENT' "-->
+  <div class="main-content">
+    <div class="page-content">
+      <!-- content -->
+      <router-outlet></router-outlet>
+    </div>
+
+    <!-- footer -->
+    <app-footer *ngIf="false"></app-footer>
+  </div>
+</div>
+
+<app-rightsidebar *ngIf="false"></app-rightsidebar>

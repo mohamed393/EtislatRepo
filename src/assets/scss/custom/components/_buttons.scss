@@ -1,0 +1,90 @@
+//
+// _buttons.scss
+//
+
+button, a {
+  outline: none !important;
+}
+
+// Rounded Buttons
+.btn-icon, .btn-rounded {
+  font-family: Poppins, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  border-radius: 33px;
+  line-height: 2;
+  letter-spacing: normal;
+  color: $white;
+  background-color: $blue;
+  &:hover {
+    background-color: $indigo;
+    color: $white;
+  }
+}
+.setSettings{
+  font-family: Poppins;
+  padding: 7px 28px 6px 29px;
+  border-radius: 8px;
+  background-color: $Brandcolor;
+  color: $white;
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2;
+  letter-spacing: normal;
+  text-align: center;
+
+}
+
+.btn-default {
+  font-family: Poppins, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2;
+  letter-spacing: normal;
+  background-color: $blue;
+  color: $white;
+  &:hover {
+    background-color: $Brandcolor;
+    color: $white;
+  }
+  &:disabled {
+    font-size: 12px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2;
+    letter-spacing: normal;
+    color: $disabled;
+    background-color: $gray;
+  }
+}
+
+
+.btn-radio {
+  transform: scale(2);
+}
+
+.btn-chekBox {
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  border: 1px solid #555;
+  margin-top: 5px;
+  background-color: white;
+  &:hover{
+    border: solid 2px $indigo
+  }
+}
+.btn-dark, .btn-secondary {
+  color: $gray-200 !important;
+}
+
+.btn-outline-light {
+  color: $gray-900;
+}

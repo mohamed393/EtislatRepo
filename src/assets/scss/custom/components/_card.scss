@@ -1,0 +1,40 @@
+//
+// _card.scss
+//
+
+.card {
+  margin-bottom: $grid-gutter-width;
+  box-shadow: $box-shadow;
+}
+
+.card-drop {
+  color: $body-color;
+}
+
+.card-title {
+  margin: 0 0 7px 0;
+  font-family: Poppins;
+  //font-size: 24px;
+  //font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  color: $headerTitleColor;
+  display: inline-block;
+}
+.card-title i {
+  margin: 9px 8px 41px 0;
+  padding: 5px 4px;
+}
+.card-body button{
+  //float: right;
+  display: inline-block;
+}
+
+
+.card-title-desc {
+  color: $card-title-desc;
+  margin-bottom: 24px;
+}
+

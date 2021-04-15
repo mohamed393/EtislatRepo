@@ -1,0 +1,61 @@
+<!-- ========== Left Sidebar Start ========== -->
+<ng-template #contentTemplate>
+  <!--- Sidemenu -->
+  <div id="sidebar-menu">
+    <!-- Left Menu Start -->
+    <ul #sideMenu class="metismenu list-unstyled" id="side-menu">
+      <ng-container *ngFor="let item of menuItems">
+        <li *ngIf="item.isTitle && hasPermission(item)"
+            [routerLink]="item.link"> class="menu-title">{{ item.label |translate }}</li>
+        <li *ngIf="!item.isTitle && !item.isLayout && hasPermission(item)">
+          <a *ngIf="!hasItems(item)" [routerLinkActiveOptions]="{exact: true}" [routerLink]="item.link"
+             class="side-nav-link-ref"
+             routerLinkActive="active">
+            <i *ngIf="item.icon" class="bx {{ item.icon }} focus"></i>
+            <span> {{ item.label |translate }}</span>
+            <span *ngIf="item.badge"
+                  class="badge badge-pill badge-{{item.badge.variant}} float-right">{{item.badge.text}}</span>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</ng-template>
+<!-- Sidebar -->
+
+<div class="vertical-menu">
+  <perfect-scrollbar [config]="configData">
+    <div *ngIf="!isCondensed" style="margin-top: 50px">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </div>
+    <div *ngIf="isCondensed">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </div>
+    <div *ngIf="isAccountUser" id="footer">
+      <div class="made-by">Made with love by</div>
+      <div class="navbar-brand-box">
+        <!-- *ngIf="user.UserType.key != 'STUDENT' " -->
+        <a class="logo logo-dark" href="/">
+          <span class="logo-sm">
+            <img alt="" height="22" src="assets/images/logo.svg">
+          </span>
+          <span class="logo-lg">
+            <img alt="" height="17" src="assets/images/logo-dark.png">
+          </span>
+        </a>
+
+        <a class="logo logo-light" href="/">
+          <span class="logo-sm">
+            <img alt="" height="25" src="assets/images/logo-light.svg">
+          </span>
+          <span class="logo-lg">
+         <img alt="200x200" class="img-thumbnail rounded-circle "
+              data-holder-rendered="true" src="assets/images/logo.svg">
+          </span>
+        </a>
+      </div>
+    </div>
+
+  </perfect-scrollbar>
+</div>
+<!-- Left Sidebar End -->

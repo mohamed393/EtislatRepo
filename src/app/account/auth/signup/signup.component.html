@@ -1,0 +1,106 @@
+<div class="home-btn d-none d-sm-block">
+  <a class="text-dark" href="/"><i class="fas fa-home h2"></i></a>
+</div>
+<div class="account-pages my-5 pt-sm-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6 col-xl-5">
+        <div class="card overflow-hidden">
+          <div class="bg-soft-primary">
+            <div class="row">
+              <div class="col-7">
+                <div class="text-primary p-4">
+                  <h5 class="text-primary">Free Register</h5>
+                  <!--<p>Get your free TProctor account now.</p>-->
+                </div>
+              </div>
+              <div class="col-5 align-self-end">
+                <img alt="" class="img-fluid" src="assets/images/profile-img.png">
+              </div>
+            </div>
+          </div>
+          <div class="card-body pt-0">
+            <div>
+              <a href="/">
+                <div class="avatar-md profile-user-wid mb-4">
+                  <span class="avatar-title rounded-circle bg-light">
+                    <img alt="" class="rounded-circle" height="34" src="assets/images/logo.svg">
+                  </span>
+                </div>
+              </a>
+            </div>
+            <div class="p-2">
+
+              <form (ngSubmit)="onSubmit()" [formGroup]="signupForm" class="form-horizontal" name="signupForm"
+                    novalidate>
+
+                <ngb-alert *ngIf="successmsg" [dismissible]="false" type="success">Registeration successfull.
+                </ngb-alert>
+
+                <ngb-alert *ngIf="error" [dismissible]="false" type="danger">{{ error }}</ngb-alert>
+
+                <div class="form-group mb-3">
+                  <label for="username">Username</label>
+
+                  <input [ngClass]="{ 'is-invalid': submitted && f.username.errors }" class="form-control"
+                         formControlName="username"
+                         id="username" placeholder="Enter username"
+                         type="text"/>
+
+                  <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                    <div *ngIf="f.username.errors.required">Userame is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group mb-3">
+                  <label for="email">Email</label>
+
+                  <input [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="form-control"
+                         formControlName="email"
+                         id="email" placeholder="Email" type="email"/>
+
+                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="password">Password</label>
+
+                  <input [ngClass]="{ 'is-invalid': submitted && f.password.errors }" class="form-control"
+                         formControlName="password"
+                         id="password" placeholder="Password"
+                         type="password"/>
+
+                  <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required">Password is required</div>
+                  </div>
+                </div>
+
+                <div class="mt-4">
+                  <button class="btn btn-primary btn-block" type="submit">Register</button>
+                </div>
+                <div class="mt-4 text-center">
+                  <p class="mb-0">By registering you agree the <a class="text-primary"
+                                                                  href="javascript: void(0);">Terms of
+                    Use</a></p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- end card -->
+
+        <div class="mt-5 text-center">
+          <p>Already have an account ? <a class="font-weight-medium text-primary" routerLink="/account/login"> Login</a>
+          </p>
+          <p>© {{year}} <i class="mdi mdi-heart text-danger"></i> by Teqnia Tech</p>
+        </div>
+      </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+  </div>
+  <!-- end container -->
+</div>
+<!-- end page -->

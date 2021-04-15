@@ -1,0 +1,116 @@
+<div class="container-fluid">
+
+  <!-- start page title -->
+  <!-- end page title -->
+
+  <div class="row">
+    <div class="col-12">
+
+      <!-- Table data -->
+      <div class="container-fluid">
+<!--        <app-page-title title="{{}}"></app-page-title>-->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row mb-2">
+                  <p class='card-title mb-4 col-sm-3 h4'>{{'configurationItem.item'|translate}}</p>
+                  <div class="col-sm-12">
+                    <div class="dataTables_length" id="tickets-table_length"><label
+                      class="d-inline-flex align-items-center">{{'show'|translate}}
+                      <select [(ngModel)]="tableConfig.pageSize" (ngModelChange)="pageSizeChanged($event)"
+                              aria-controls="tickets-table"
+                              class="custom-select custom-select-sm form-control form-control-sm mx-2" name="pageSize"
+                              name="tickets-table_length">
+                        <option [ngValue]="5">5</option>
+                        <option [ngValue]="10">10</option>
+                        <option [ngValue]="25">25</option>
+                        <option [ngValue]="50">50</option>
+                      </select> {{'entries'|translate}}</label></div>
+
+                  </div>
+                  <!--                  <div class="col-sm-4">-->
+                  <!--                    <div class="search-box mr-2 mb-2  text-sm-right">-->
+                  <!--                      <div class="position-relative">-->
+                  <!--                        <input  [(ngModel)]="tableConfig.searchTerm" (keyup)="filteritems()" class="form-control"-->
+                  <!--                               placeholder="{{'search'|translate}}" type="text"/>-->
+                  <!--                        <i class="bx bx-search-alt search-icon"></i>-->
+                  <!--                      </div>-->
+                  <!--                    </div>-->
+                  <!--                  </div>-->
+                  <!-- end col-->
+                </div>
+                <!--end-->
+                <div class="table-responsive">
+                  <table class="table table-centered table-nowrap">
+                    <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>{{'configurationItem.name'|translate}}</th>
+                      <th>{{'active'|translate}}</th>
+                      <th>{{'configurationItem.icon'|translate}}</th>
+                      <!--                      <th class="action">{{'action'|translate}}</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of items   ;let i = index;">
+                      <th scope="row">{{i + 1}}</th>
+                      <td>{{(language === 'ar') ? item.arabicName : item.englishName}} <br>
+                        <p
+                          class="card-text">{{(language === 'ar') ? item.enableArDescription : item.enableEnDescription}}
+                          <br>
+                          {{(language === 'ar') ? item.disableArDescription : item.disableEnDescription}} </p>
+
+                      </td>
+                      <td>
+                        <div class="custom-control custom-switch mb-2" dir="ltr">
+                          <input (change)="changeActive($event.target.checked,item,i)" [(ngModel)]="item.active"
+                                 class="custom-control-input"
+                                 id="{{item.id}}" type="checkbox">
+                          <label class="custom-control-label" for="{{item.id}}"></label>
+                        </div>
+                      </td>
+                      <td>
+                        <img alt="200x200" class="rounded-circle avatar-xl" data-holder-rendered="true"
+                             src="assets/images/configItems/{{item.key+'.svg'}}">
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- pagination -->
+                <div class="row justify-content-md-between align-items-md-center mt-4">
+                  <div class="col-sm-12 col-md-5">
+                    <div aria-live="polite" class="dataTables_info mb-2" id="tickets-table_info" role="status">
+                      {{'show'|translate}}
+                      {{tableConfig.startIndex + 1}} {{'to'|translate}}
+                      {{tableConfig.pageSize}} {{'of'|translate}} {{tableConfig.totalRecords}}
+                      {{'entries'|translate}}
+                    </div>
+                  </div>
+                  <!-- Pagination -->
+                  <div class="col-sm-12 col-md-5">
+                    <div class="text-md-right float-md-right pagination-rounded">
+                      <ngb-pagination [(page)]="tableConfig.page" (pageChange)="filteritems()"
+                                      [collectionSize]="tableConfig.totalRecords" [pageSize]="tableConfig.pageSize">
+                      </ngb-pagination>
+                    </div>
+                  </div>
+                  <!-- End Pagination -->
+                </div>
+
+                <!--end pagination-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end row -->
+      </div>
+
+
+      <!--      End table data-->
+
+    </div>
+  </div>
+  <!-- end row -->
+
+</div> <!-- container-fluid -->

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="18" viewBox="0 0 36 18">
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <g transform="translate(-536 -552) translate(400 292) translate(91 232) translate(46 28)">
+                        <g fill="#48A4F2" transform="translate(5 10)">
+                            <rect width="27" height="3" rx="1"/>
+                            <rect width="8" height="3" y="5" rx="1"/>
+                        </g>
+                        <rect width="30" height="3" x="5" y="2" fill="#FFF" rx="1"/>
+                        <text fill="#FFF" font-family="SignPainter-HouseScriptSemibold, SignPainter" font-size="6" font-style="condensed" font-weight="500">
+                            <tspan x="0" y="5">Q</tspan>
+                        </text>
+                        <text fill="#48A4F2" font-family="SignPainter-HouseScriptSemibold, SignPainter" font-size="6" font-style="condensed" font-weight="500">
+                            <tspan x="0" y="13">a</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
