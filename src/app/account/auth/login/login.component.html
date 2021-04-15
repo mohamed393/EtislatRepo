@@ -9,11 +9,11 @@
               <div class="col-7">
                 <div class="text-primary p-4">
                   <h5 class="text-primary">Welcome Back !</h5>
-                  <p>Sign in to continue to TProctor.</p>
+                  <p>Sign in to continue  .</p>
                 </div>
               </div>
               <div class="col-5 align-self-end">
-                <img alt="" class="img-fluid" src="assets/images/profile-img.png">
+                <img alt="" class="img-fluid" src="../../../../assets/images/logo-dark.png">
               </div>
             </div>
           </div>
@@ -22,7 +22,7 @@
               <a href="/">
                 <div class="avatar-md profile-user-wid mb-4">
                   <span class="avatar-title rounded-circle bg-light">
-                    <img alt="" class="rounded-circle" height="55" src="assets/images/logo.svg">
+                    <img alt="" class="rounded-circle" height="55" src="../../../../assets/images/logo-dark.png">
                   </span>
                 </div>
               </a>
@@ -30,7 +30,7 @@
             <div class="p-2">
               <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="form-horizontal">
 
-                <ngb-alert *ngIf="error" [dismissible]="false" type="danger">{{ error }}</ngb-alert>
+                <ngb-alert *ngIf="error" [dismissible]="false" type="danger">{{ error|translate }}</ngb-alert>
 
                 <div class="form-group mb-3">
                   <label for="email">Email</label>
@@ -65,21 +65,12 @@
                 </div>
 
                 <div class="mt-4 text-center">
-                  <a class="text-muted" routerLink="/account/forget-password"><i class="mdi mdi-lock mr-1"></i> Forgot
-                    your
-                    password?</a>
+                  <a class="text-muted" routerLink="/account/signup"><i class="mdi mdi-lock mr-1"></i>Register </a>
                 </div>
               </form>
             </div>
 
           </div>
-        </div>
-        <div class="mt-5 text-center">
-          <p *ngIf="false">Don't have an account ? <a class="font-weight-medium text-primary"
-                                                      routerLink="/account/signup"> Signup
-            now
-          </a></p>
-          <p>© {{year}}  by Teqnia Tech</p>
         </div>
 
       </div>

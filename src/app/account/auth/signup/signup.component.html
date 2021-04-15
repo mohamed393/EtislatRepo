@@ -37,20 +37,7 @@
                 <ngb-alert *ngIf="successmsg" [dismissible]="false" type="success">Registeration successfull.
                 </ngb-alert>
 
-                <ngb-alert *ngIf="error" [dismissible]="false" type="danger">{{ error }}</ngb-alert>
-
-                <div class="form-group mb-3">
-                  <label for="username">Username</label>
-
-                  <input [ngClass]="{ 'is-invalid': submitted && f.username.errors }" class="form-control"
-                         formControlName="username"
-                         id="username" placeholder="Enter username"
-                         type="text"/>
-
-                  <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                    <div *ngIf="f.username.errors.required">Userame is required</div>
-                  </div>
-                </div>
+                <ngb-alert *ngIf="error" [dismissible]="false" type="danger">{{ error|translate }}</ngb-alert>
 
                 <div class="form-group mb-3">
                   <label for="email">Email</label>
@@ -95,7 +82,7 @@
         <div class="mt-5 text-center">
           <p>Already have an account ? <a class="font-weight-medium text-primary" routerLink="/account/login"> Login</a>
           </p>
-          <p>© {{year}} <i class="mdi mdi-heart text-danger"></i> by Teqnia Tech</p>
+          <p>© {{year}} <i class="mdi mdi-heart text-danger"></i> by Mohamed Mosleh</p>
         </div>
       </div> <!-- end col -->
     </div>

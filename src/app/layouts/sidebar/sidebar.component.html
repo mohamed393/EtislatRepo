@@ -5,10 +5,8 @@
     <!-- Left Menu Start -->
     <ul #sideMenu class="metismenu list-unstyled" id="side-menu">
       <ng-container *ngFor="let item of menuItems">
-        <li *ngIf="item.isTitle && hasPermission(item)"
-            [routerLink]="item.link"> class="menu-title">{{ item.label |translate }}</li>
-        <li *ngIf="!item.isTitle && !item.isLayout && hasPermission(item)">
-          <a *ngIf="!hasItems(item)" [routerLinkActiveOptions]="{exact: true}" [routerLink]="item.link"
+        <li>
+          <a [routerLinkActiveOptions]="{exact: true}" [routerLink]="item.link"
              class="side-nav-link-ref"
              routerLinkActive="active">
             <i *ngIf="item.icon" class="bx {{ item.icon }} focus"></i>

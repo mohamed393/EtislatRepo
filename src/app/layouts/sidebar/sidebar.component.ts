@@ -40,8 +40,6 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
     this.initialize();
     this.user = JSON.parse(localStorage.getItem('currentUser'));
 
-    this.key = this.user.Student ? 'STUDENT' : this.user.AccountAdmin ? 'ACCOUNT_ADMIN' : this.user.Instructor ? 'INSTRUCTOR' : 'ADMIN';
-    this.isAccountUser = (this.key !== 'ADMIN');
     document.body.setAttribute('data-sidebar', 'dark');
 
     this.configData = {
@@ -218,46 +216,6 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
    * Returns true or false if given menu item has child or not
    * @param item menuItem
    */
-  hasItems(item: MenuItem) {
-    return item.subItems !== undefined ? item.subItems.length > 0 : false;
-  }
 
-  hasPermission(item: MenuItem): boolean {
-
-    if (!this.user) {
-      // console.log('no user ')
-      return false;
-    }
-    if (item.userTypeKeys) {
-      return item.userTypeKeys.includes(this.key);
-    }
-    return false;
-
-    // if (!item.permissions) {
-    //   return true;
-    // }
-    // if (!this._authenticationService.isLogin) {
-    //   return false;
-    // }
-    // if (userPermissions.systemPermissions['*']) {
-    //   return true;
-    // }
-    // let length = item.permissions.length;
-    // for (let index = 0; index < length; index++) {
-    //   if (userPermissions.systemPermissions[item.permissions[index]]) {
-    //     return true;
-    //   }
-    // }
-    // let placePermissionLength = 0;
-    // for (let index = 0; index < length; index++) {
-    //   placePermissionLength = userPermissions.placePermissions.length;
-    //   for (let i = 0; i < placePermissionLength; i++) {
-    //     if (userPermissions.placePermissions[i].permissions[item.permissions[index]]) {
-    //       return true;
-    //     }
-    //   }
-    // }
-    // return false;
-  }
 
 }

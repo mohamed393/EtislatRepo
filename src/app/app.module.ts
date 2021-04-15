@@ -1,65 +1,70 @@
-import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {RouterModule, Routes} from '@angular/router';
-import {MatMomentDateModule} from '@angular/material-moment-adapter';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {TranslateModule} from '@ngx-translate/core';
-import 'hammerjs';
+import {NgModule} from '@angular/core';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule,} from '@angular/common/http';
 
-import {EtrainingModule} from '@etraining/etraining.module';
-import {EtrainingSharedModule} from '@etraining/shared.module';
-import {EtrainingProgressBarModule, EtrainingSidebarModule, EtrainingThemeOptionsModule} from '@etraining/components';
+import {NgbAccordionModule, NgbNavModule, NgbTooltipModule,} from '@ng-bootstrap/ng-bootstrap';
 
-import {etrainingConfig} from 'app/etraining-config';
+import {LayoutsModule} from './layouts/layouts.module';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 
-import {AppComponent} from 'app/app.component';
-import {LayoutModule} from 'app/layout/layout.module';
+import {ErrorInterceptor} from './core/helpers/error.interceptor';
+import {JwtInterceptor} from './core/helpers/jwt.interceptor';
+import {EtrainingProgressBarModule} from './shared/ui/progress-bar/progress-bar.module';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {SocketIoModule} from 'ngx-socket-io';
+import {QuillModule} from 'ngx-quill';
+import {AngularSvgIconModule} from 'angular-svg-icon';
+import {ClipboardModule} from 'ngx-clipboard';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
-const appRoutes: Routes = [
-    {
-        path: 'auth',
-        loadChildren: () => import('./pages/authentication/authentication.module').then(m => m.AuthenticationModule)
-    }, {
-        path: '',
-        loadChildren: './pages/pages.module#PagesModule'
-    }, {
-        path: '**',
-        redirectTo: 'sample'
-    }
-];
+
+export function httpTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+const config = {
+    apiKey: "AIzaSyDrykyc9Nvf48xXviRi9uN31GQkPnMt_gs",
+    databaseURL: "https://medo74-5b94b.firebaseio.com",
+    projectId: "medo74-5b94b"
+};
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
+    declarations: [AppComponent],
     imports: [
-
+        AngularFireModule.initializeApp(config),
+        AngularFireAuthModule,
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        RouterModule.forRoot(appRoutes),
-        TranslateModule.forRoot(),
-        // Material moment date module
-        MatMomentDateModule,
-        // Material
-        MatButtonModule,
-        MatIconModule,
-        // Etraining modules
-        EtrainingModule.forRoot(etrainingConfig),
+        LayoutsModule,
+        AppRoutingModule,
+        NgbAccordionModule,
+        NgbNavModule,
+        NgbTooltipModule,
         EtrainingProgressBarModule,
-        EtrainingSharedModule,
-        EtrainingSidebarModule,
-        EtrainingThemeOptionsModule,
-
-        // App modules
-        LayoutModule,
+        AngularFireModule,
+        AngularFireAuthModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: httpTranslateLoader,
+                deps: [HttpClient],
+            },
+        }),
+        QuillModule.forRoot(),
+        SocketIoModule,
+        ClipboardModule,
+        AngularSvgIconModule.forRoot()
     ],
-    bootstrap: [
-        AppComponent
-    ]
+    bootstrap: [AppComponent],
+    providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+        {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+        // {provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true},
+    ],
 })
 export class AppModule {
 }

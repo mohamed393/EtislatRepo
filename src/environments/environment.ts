@@ -3,8 +3,19 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    production: false,
-    hmr       : false
+  production: false,
+  API_ENDPOINT: 'http://localhost:3000/api/',
+  HOST: 'http://localhost:3000/',
+  // firebaseConfig: {
+  //   apiKey: '',
+  //   authDomain: '',
+  //   databaseURL: '',
+  //   projectId: '',
+  //   storageBucket: '',
+  //   messagingSenderId: '',
+  //   appId: '',
+  //   measurementId: ''
+  // }
 };
 
 /*

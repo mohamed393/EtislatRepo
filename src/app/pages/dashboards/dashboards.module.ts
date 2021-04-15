@@ -12,8 +12,6 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {WidgetModule} from '../../shared/ui/widget/widget.module';
 import {SharedModule} from '../../shared/shared.module';
 import {NgApexchartsModule} from 'ng-apexcharts';
-import {TestService} from '../test/test.service';
-import {NotificationService} from 'src/app/core/services/notification.service';
 import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
@@ -34,7 +32,7 @@ import {TranslateModule} from '@ngx-translate/core';
     NgbPaginationModule,
     NgbCarouselModule,
   ],
-  providers: [TestService, NotificationService]
+  providers: [ ]
 })
 export class DashboardsModule {
 }

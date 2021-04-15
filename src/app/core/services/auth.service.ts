@@ -3,145 +3,88 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {User} from '../models/auth.models';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 import {environment} from '../../../environments/environment';
-import {CookiesService} from './cookies.service';
 import Swal from 'sweetalert2';
+import {Router} from '@angular/router';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 const endPoint = environment.API_ENDPOINT + 'user/';
-const endPointEx = environment.API_ENDPOINT;
 
 @Injectable({providedIn: 'root'})
 export class AuthenticationService {
 
-  constructor(
-    private http: HttpClient,
-    private cookiesService: CookiesService
-  ) {
-    this.currentUserSubject = new BehaviorSubject<User>(
-      JSON.parse(localStorage.getItem('currentUser'))
-    );
-    this.currentUser = this.currentUserSubject.asObservable();
-    // console.log(this.currentUser);
-
-    // if (this.currentUserValue) {
-    //
-    // }
-  }
-
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
-  }
-
-  public currentUser: Observable<User>;
-  GlobalIp;
-  data;
-  private currentUserSubject: BehaviorSubject<User>;
-
-  static isStudent() {
-    setTimeout(() => {
-    }, 0);
-    const user: User = JSON.parse(localStorage.getItem('currentUser'));
-    console.log('!!(user)', user);
-    if (!user) {
-      return;
+    constructor(
+        private http: HttpClient, public afAuth: AngularFireAuth, public router: Router
+    ) {
+        this.currentUserSubject = new BehaviorSubject<User>(
+            JSON.parse(localStorage.getItem('currentUser'))
+        );
+        this.currentUser = this.currentUserSubject.asObservable();
     }
-    console.log(user.Student);
-    return !!(user.Student);
-  }
 
+    public get currentUserValue(): User {
+        return this.currentUserSubject.value;
+    }
 
-  login(email: string, password: string) {
-    return this.http
-      .post<any>(endPoint + 'login', {
-        email,
-        password,
-      })
-      .pipe(
-        map((data) => {
-          // login successful if there's a jwt token in the response
-          console.log(data.user);
-          data.user.token = data.token;
-          if (data.user && data.user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(data.user));
-            this.currentUserSubject.next(data.user);
-          }
-          return data.user;
-        })
-      );
-  }
+    public currentUser: Observable<User>;
+    GlobalIp;
+    data;
+    private currentUserSubject: BehaviorSubject<User>;
 
-  loginWithToken(token: string) {
-    return this.http
-      .post<any>(endPointEx + 'external-test/login-with-token', {token})
-      .pipe(
-        map((data) => {
-          // login successful if there's a jwt token in the response
-          console.log(data.user);
-          data.user.token = data.token;
-          if (data.user && data.user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(data.user));
-            this.currentUserSubject.next(data.user);
-            // this.cookiesService.getIPAddress().subscribe((res: any) => {
-            //   this.GlobalIp = res.ip;
-            //   this.data = {
-            //     id: data.user.id,
-            //     GlobalIp: this.GlobalIp,
-            //     localIp: "192.14.2.3",
-            //     TestId: null,
-            //   };
-            //   console.log("DATAOFTEMPUSERSInLogIn", this.data);
-            //   this.cookiesService
-            //     .putTempData(this.data)
-            //     .subscribe((res: any) => {
-            //       console.log("TempUsersInLogin", res);
-            //     });
-            // });
-          }
-          return data.user;
-        })
-      );
-  }
+    async login(email: string, password: string) {
+        try {
+            const result = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+            console.log('result', result);
+            if (result) {
+                localStorage.setItem('currentUser', JSON.stringify(result.user));
+                this.router.navigate(['']);
+            }
 
-  register(email: string, password: string) {
-    return this.http
-      .post<any>(endPoint, {email, password})
-      .pipe(
-        map((user) => {
-          // login successful if there's a jwt token in the response
-          return user;
-        })
-      );
-  }
+        } catch (e) {
+            return e.message
+        }
 
-  resetPassword(email) {
-    return this.http
-      .post<any>(endPoint + 'login', {email})
-      .pipe(
-        map((user) => {
-          // login successful if there's a jwt token in the response
+    }
+    async register(email: string, password: string) {
+        try {
+            const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+            localStorage.setItem('currentUser', JSON.stringify(result.user));
+            console.log('ResultSignUp', result);
+            this.router.navigate(['']);
+        }catch (e) {
+            return e.message
+            // console.log('error',e.message)
+        }
 
-          return user;
-        })
-      );
-  }
+    }
 
-  logout() {
-    localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
-    location.replace('/account/login');
-  }
+    logout() {
+        localStorage.removeItem('currentUser');
+        this.currentUserSubject.next(null);
+        location.replace('/account/login');
+    }
 
-  deleteModelResult(title: any, message: any, icon: any) {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger ml-2',
-      },
-      buttonsStyling: true,
-    });
-    swalWithBootstrapButtons.fire(title, message, icon);
-  }
+    // My Services
+    MyCurrentUser() {
+        let token = localStorage.getItem('token');
+        if (token) {
+            const helper = new JwtHelperService();
+            const user = helper.decodeToken(token);
+            user.token = token; //to be used in headers
+            return user;
+        } else {
+            return null;
+        }
+    }
+
+    isLogedin() {
+        let token = localStorage.getItem('currentUser');
+        if (token) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

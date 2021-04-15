@@ -1,26 +1,22 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {UserProfileService} from '../../core/services/user.service';
 import {FilmComponent} from './film/film.component';
+import {FilmService} from '../../core/services/film.service';
 
 
 const routes: Routes = [
-  {
-    path: '',
-    component: FilmComponent,
-  },
-  // {
-  //   path: 'add',
-  //   component: StudentRegisterComponent,
-  //   resolve: {
-  //     studentgroupData: StudentGroupService
-  //   },
-  // },
+    {
+        path: '',
+        component: FilmComponent,
+        resolve: {
+            data1: FilmService
+        }
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
-export class StudentsRoutingModule {
+export class FilmsRoutingModule {
 }

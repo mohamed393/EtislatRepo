@@ -27,10 +27,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   // set the currenr year
   year: number = new Date().getFullYear();
 
-  // tslint:disable-next-line: max-line-length
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
               private authenticationService: AuthenticationService,
-              // private authFackservice: AuthfakeauthenticationService
   ) {
   }
 
@@ -45,10 +43,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
       password: ['', [Validators.required]],
     });
 
-    // reset login status
-    // this.authenticationService.logout();
-    // get return url from route parameters or default to '/'
-    // tslint:disable-next-line: no-string-literal
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
@@ -66,20 +60,22 @@ export class LoginComponent implements OnInit, AfterViewInit {
     if (this.loginForm.invalid) {
       return;
     } else {
-      this.authenticationService
-        .login(this.f.email.value, this.f.password.value)
-        .pipe(first())
-        .subscribe(
-          (data) => {
-            setTimeout(() => {
-            }, 0);
-            this.router.navigate(['/']);
-          },
-          (error) => {
-            console.log(error);
-            this.error = error ? error : '';
-          }
-        );
+        const data= this.authenticationService.login(this.f.email.value, this.f.password.value)
+        if (data) {
+            this.error ='emailOrPasswordInvalid'
+        }
+        // .subscribe(
+        //   (data) => {
+        //       console.log('data',data)
+        //     // setTimeout(() => {
+        //     // }, 0);
+        //     this.router.navigate(['/']);
+        //   },
+        //   (error) => {
+        //     console.log(error);
+        //     this.error = error ? error : '';
+        //   }
+        // );
     }
   }
 }

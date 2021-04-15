@@ -1,1 +1,45 @@
-<p>film works!</p>
+<div class="row">
+    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+        <label for="tag">{{ "filmType" | translate }}</label>
+        <div class="form-group">
+            <ng-select
+                id="tag"
+                (change)="onChangeMethod($event)">
+                <ng-option *ngFor="let film of filmTypes" [value]="film"
+                >{{ film|translate }}
+                </ng-option>
+            </ng-select>
+        </div>
+    </div>
+</div>
+<div class='table-responsive'>
+    <table class='table table-centered table-nowrap'>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>{{'original_language'|translate}} </th>
+            <th>{{'overview'|translate}}</th>
+            <th>{{'release_date'|translate}}</th>
+            <th>{{'title'|translate}}</th>
+            <th>{{'vote_average'|translate}}</th>
+            <th>{{'vote_count'|translate}}</th>
+            <th>{{'fav'|translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor='let film of films ;let index = index;'>
+            <th scope='row'>{{index + 1}}</th>
+            <td>{{film.original_language}}</td>
+            <td>{{(film.overview|summary).text}}</td>
+            <td>
+                {{film.release_date | date: 'dd/MM/yyyy'}}
+            </td>
+            <td>{{film.title}}</td>
+            <td>{{film.vote_average}}</td>
+            <td>{{film.vote_count  }}</td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+

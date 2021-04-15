@@ -6,7 +6,6 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
     component: DashboardComponent,
     data: {query: {limit: 10}}
   },

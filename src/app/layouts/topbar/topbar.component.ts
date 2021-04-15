@@ -58,13 +58,6 @@ export class TopbarComponent implements OnInit {
       this.language = event.lang;
     });
     this.user = this.authService.currentUserValue;
-    this.accountUser = this.user.AccountAdmin ? 'AccountAdmin' : this.user.Instructor ? 'Instructor' : this.user.Student ? 'Student' : undefined;
-
-    if (this.accountUser) {
-      this.accountLogo = this.user[this.accountUser].Account.logo;
-      this.accountName = this.user[this.accountUser].Account.accountName;
-      console.log('this.accountName', this.accountName);
-    }
 
     //if (!this.user.Instructor || !this.user.AccountAdmin || !this.Us) {
     // this.logout();

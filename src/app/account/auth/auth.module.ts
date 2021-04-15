@@ -8,12 +8,10 @@ import {UIModule} from '../../shared/ui/ui.module';
 import {LoginComponent} from './login/login.component';
 import {SignupComponent} from './signup/signup.component';
 import {AuthRoutingModule} from './auth-routing';
-import {ForgetPasswordComponent} from './forget-password/forget-password.component';
-import {ResetPasswordComponent} from './reset-password/reset-password.component';
 import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent, ResetPasswordComponent, ForgetPasswordComponent],
+  declarations: [LoginComponent, SignupComponent],
   imports: [
     CommonModule, TranslateModule.forChild({}),
     ReactiveFormsModule,

@@ -1,182 +1,40 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { Platform } from '@angular/cdk/platform';
-import { TranslateService } from '@ngx-translate/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import {Component, NgZone, OnInit} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {EventService} from './core/services/event.service';
+import {CookiesService} from './core/services/cookies.service';
+import {User} from './core/models/auth.models';
 
-import { EtrainingConfigService } from '@etraining/services/config.service';
-import { EtrainingNavigationService } from '@etraining/components/navigation/navigation.service';
-import { EtrainingSidebarService } from '@etraining/components/sidebar/sidebar.service';
-import { EtrainingSplashScreenService } from '@etraining/services/splash-screen.service';
-import { EtrainingTranslationLoaderService } from '@etraining/services/translation-loader.service';
-
-import { navigation } from 'app/navigation/navigation';
-import { locale as navigationEnglish } from 'app/navigation/i18n/en';
-import { locale as navigationTurkish } from 'app/navigation/i18n/tr';
+declare let ClientIP: any;
 
 @Component({
-    selector   : 'app',
-    templateUrl: './app.component.html',
-    styleUrls  : ['./app.component.scss']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy
-{
-    etrainingConfig: any;
-    navigation: any;
+export class AppComponent implements OnInit {
+  user: User;
+  GlobalIp;
+  data;
+  ice;
+  iceArr;
+  localIp = sessionStorage.getItem('LOCAL_IP');
 
-    // Private
-    private _unsubscribeAll: Subject<any>;
+  // private ipRegex = new RegExp(/([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/);
 
-    /**
-     * Constructor
-     *
-     * @param {DOCUMENT} document
-     * @param {EtrainingConfigService} _etrainingConfigService
-     * @param {EtrainingNavigationService} _etrainingNavigationService
-     * @param {EtrainingSidebarService} _etrainingSidebarService
-     * @param {EtrainingSplashScreenService} _etrainingSplashScreenService
-     * @param {EtrainingTranslationLoaderService} _etrainingTranslationLoaderService
-     * @param {Platform} _platform
-     * @param {TranslateService} _translateService
-     */
-    constructor(
-        @Inject(DOCUMENT) private document: any,
-        private _etrainingConfigService: EtrainingConfigService,
-        private _etrainingNavigationService: EtrainingNavigationService,
-        private _etrainingSidebarService: EtrainingSidebarService,
-        private _etrainingSplashScreenService: EtrainingSplashScreenService,
-        private _etrainingTranslationLoaderService: EtrainingTranslationLoaderService,
-        private _translateService: TranslateService,
-        private _platform: Platform
-    )
-    {
-        // Get default navigation
-        this.navigation = navigation;
 
-        // Register the navigation to the service
-        this._etrainingNavigationService.register('main', this.navigation);
+  constructor(
+    public translate: TranslateService, private eventService: EventService,
+    private cookiesService: CookiesService, private zone: NgZone,
+  ) {
+    this.user = JSON.parse(localStorage.getItem('currentUser')) as User;
+    console.log('this.user', this.user);
+    translate.addLangs(['en', 'ar']);
+    const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
+    translate.setDefaultLang(lang);
+    this.eventService.changeLanguage(lang);
+  }
 
-        // Set the main navigation as our current navigation
-        this._etrainingNavigationService.setCurrentNavigation('main');
+  ngOnInit(): void {
 
-        // Add languages
-        this._translateService.addLangs(['en', 'tr']);
-
-        // Set the default language
-        this._translateService.setDefaultLang('en');
-
-        // Set the navigation translations
-        this._etrainingTranslationLoaderService.loadTranslations(navigationEnglish, navigationTurkish);
-
-        // Use a language
-        this._translateService.use('en');
-
-        /**
-         * ----------------------------------------------------------------------------------------------------
-         * ngxTranslate Fix Start
-         * ----------------------------------------------------------------------------------------------------
-         */
-
-        /**
-         * If you are using a language other than the default one, i.e. Turkish in this case,
-         * you may encounter an issue where some of the components are not actually being
-         * translated when your app first initialized.
-         *
-         * This is related to ngxTranslate module and below there is a temporary fix while we
-         * are moving the multi language implementation over to the Angular's core language
-         * service.
-         **/
-
-        // Set the default language to 'en' and then back to 'tr'.
-        // '.use' cannot be used here as ngxTranslate won't switch to a language that's already
-        // been selected and there is no way to force it, so we overcome the issue by switching
-        // the default language back and forth.
-        /**
-         setTimeout(() => {
-            this._translateService.setDefaultLang('en');
-            this._translateService.setDefaultLang('tr');
-         });
-         */
-
-        /**
-         * ----------------------------------------------------------------------------------------------------
-         * ngxTranslate Fix End
-         * ----------------------------------------------------------------------------------------------------
-         */
-
-        // Add is-mobile class to the body if the platform is mobile
-        if ( this._platform.ANDROID || this._platform.IOS )
-        {
-            this.document.body.classList.add('is-mobile');
-        }
-
-        // Set the private defaults
-        this._unsubscribeAll = new Subject();
-    }
-
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
-    ngOnInit(): void
-    {
-        // Subscribe to config changes
-        this._etrainingConfigService.config
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((config) => {
-
-                this.etrainingConfig = config;
-
-                // Boxed
-                if ( this.etrainingConfig.layout.width === 'boxed' )
-                {
-                    this.document.body.classList.add('boxed');
-                }
-                else
-                {
-                    this.document.body.classList.remove('boxed');
-                }
-
-                // Color theme - Use normal for loop for IE11 compatibility
-                for ( let i = 0; i < this.document.body.classList.length; i++ )
-                {
-                    const className = this.document.body.classList[i];
-
-                    if ( className.startsWith('theme-') )
-                    {
-                        this.document.body.classList.remove(className);
-                    }
-                }
-
-                this.document.body.classList.add(this.etrainingConfig.colorTheme);
-            });
-    }
-
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void
-    {
-        // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
-        this._unsubscribeAll.complete();
-    }
-
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Toggle sidebar open
-     *
-     * @param key
-     */
-    toggleSidebarOpen(key): void
-    {
-        this._etrainingSidebarService.getSidebar(key).toggleOpen();
-    }
+  }
 }
